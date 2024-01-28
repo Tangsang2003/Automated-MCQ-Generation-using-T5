@@ -80,27 +80,21 @@ class MCQGenerator():
 
     def _generate_distractors(self, context: str, questions: List[Question]) -> List[Question]:
         for question in questions:
-            t5_distractors =  self.distractor_generator.generate(5, question.answerText, question.questionText, context)
-
+            t5_distractors = self.distractor_generator.generate(5, question.answerText, question.questionText, context)
             if len(t5_distractors) < 3:
-                s2v_distractors = self.sense2vec_distractor_generator.generate(question.answerText, 3)
+                s2v_distractors = self.sense2vec_distractor_generator.generate(question.answerText, (3))
                 distractors = t5_distractors + s2v_distractors
             else:
                 distractors = t5_distractors
-
-
             distractors = remove_duplicates(distractors)
             distractors = remove_distractors_duplicate_with_correct_answer(question.answerText, distractors)
             #TODO - filter distractors having a similar bleu score with another distractor
-
             question.distractors = distractors
-
         return questions
 
     # Helper functions 
     def _generate_answer_for_each_sentence(self, context: str) -> List[str]:
         sents = sent_tokenize(context)
-
         answers = []
         for sent in sents:
             answers.append(self.answer_generator.generate(sent, 1)[0])
