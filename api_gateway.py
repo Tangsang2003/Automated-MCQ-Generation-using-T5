@@ -3,8 +3,8 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import json
 
-from app.models.question import Question
-from app.mcq_generation import MCQGenerator
+from mcq_app.models.question import Question
+from mcq_app.mcq_generation import MCQGenerator
 
 app = Flask(__name__)
 cors = CORS(app)

@@ -81,8 +81,8 @@ class DistractorGenerator():
 
     def generate(self, generate_count: int, correct: str, question: str, context: str) -> List[str]:
         
-        generate_triples_count = int(generate_count / 3) + 1 #since this model generates 3 distractors per generation
-        
+        generate_triples_count = int(generate_count / 3) + 1  # since this model generates 3 distractors per generation
+
         model_output = self._model_predict(generate_triples_count, correct, question, context)
 
         cleaned_result = model_output.replace('<pad>', '').replace('</s>', '<sep>')
@@ -142,5 +142,3 @@ class DistractorGenerator():
             new_text = new_text[:start_index_of_extra_id] + '<sep>' + new_text[end_index_of_extra_id + 1:]
 
         return new_text
-
-    

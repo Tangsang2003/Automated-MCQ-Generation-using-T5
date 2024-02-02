@@ -1,6 +1,10 @@
 from typing import List
 from nltk.tokenize import sent_tokenize
 import toolz
+# Added modules
+# from nltk.tokenize import word_tokenize
+# from nltk.corpus import stopwords
+# Yaa samma
 
 from app.modules.duplicate_removal import remove_distractors_duplicate_with_correct_answer, remove_duplicates
 from app.modules.text_cleaning import clean_text
@@ -79,6 +83,15 @@ class MCQGenerator():
         return questions
 
     def _generate_distractors(self, context: str, questions: List[Question]) -> List[Question]:
+        # From below here, I have added my self implementation of distractors generation so that the number is always 4.
+        # Tokenize the context into words
+        # context_words = word_tokenize(context)
+
+        # Remove stopwords (common words that may not be useful for distractors)
+        # stop_words = set(stopwords.words("english"))
+        # context_words = [word.lower() for word in context_words if word.isalpha() and word.lower() not in stop_words]
+        # Up until here
+
         for question in questions:
             t5_distractors = self.distractor_generator.generate(5, question.answerText, question.questionText, context)
             if len(t5_distractors) < 3:
@@ -88,7 +101,12 @@ class MCQGenerator():
                 distractors = t5_distractors
             distractors = remove_duplicates(distractors)
             distractors = remove_distractors_duplicate_with_correct_answer(question.answerText, distractors)
+
             #TODO - filter distractors having a similar bleu score with another distractor
+            # Remove this if it fails hai tw
+            # while len(distractors) < 3 and context_words:
+            #     distractors.append(context_words.pop())
+            # Yaa samma
             question.distractors = distractors
         return questions
 
