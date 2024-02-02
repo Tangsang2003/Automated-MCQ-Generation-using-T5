@@ -11,15 +11,15 @@
     {% for question in mcqs %}
         <div style="margin-bottom: 10px;">
             <ul>
-                <li>
-                    <h3><strong>{{ question.questionText }}</strong></h3>
+<!--                <li>-->
+                    <h3>{{loop.index}}. <strong>{{ question.questionText }}</strong></h3>
                     <ol type="a">
                         {% for option in question.distractors %}
                             <li>{{ option }}</li>
                         {% endfor %}
                         <li>{{ question.answerText }}</li>
                     </ol>
-                </li>
+<!--                </li>-->
             </ul>
             <strong><i style="margin-left: 60px;">Correct Answer: {{question.answerText}}</i></strong>
             <hr>
