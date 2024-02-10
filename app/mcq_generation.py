@@ -101,6 +101,9 @@ class MCQGenerator():
                 distractors = t5_distractors
             distractors = remove_duplicates(distractors)
             distractors = remove_distractors_duplicate_with_correct_answer(question.answerText, distractors)
+            # below you can remove hai tw
+            if len(distractors) > 3:
+                distractors = distractors[0:3]
 
             #TODO - filter distractors having a similar bleu score with another distractor
             # Remove this if it fails hai tw

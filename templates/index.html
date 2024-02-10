@@ -20,5 +20,24 @@
         </div>
         <button style="margin-top: 10px;" type="submit">Generate MCQs</button>
     </form>
+
+    <h2>Upload a File</h2>
+    <form method="post" enctype="multipart/form-data">
+        {{ file_upload_form.hidden_tag() }}
+        <div>
+            <label for="{{ file }}">Select a file:</label>
+            {{ file_upload_form.file }}
+        </div>
+
+        <div>
+            <strong><label for="{{ number_of_questions }}">Number of required questions:<br></label></strong>
+            {{ file_upload_form.number_of_questions(id="number_of_mcqs", type="number") }}
+        </div>
+
+        <div>
+            {{ file_upload_form.submit }}
+        </div>
+    </form>
+
 </body>
 </html>

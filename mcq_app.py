@@ -1,9 +1,12 @@
 # mcq_app.py
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, IntegerField
+from wtforms import TextAreaField, IntegerField, FileField, SubmitField
 from wtforms.validators import DataRequired
 from app.mcq_generation import MCQGenerator
+# from pdftextract import XPdf
+import fitz
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pass'  # Replace with a strong secret key
@@ -14,12 +17,19 @@ class MCQForm(FlaskForm):
     number_of_questions = IntegerField('Number of MCQs', validators=[DataRequired()])
 
 
+class FileUploadForm(FlaskForm):
+    file = FileField('File')
+    number_of_questions = IntegerField('Number of MCQs', validators=[DataRequired()])
+    submit = SubmitField('Upload')
+
+
 MCQ_Generator = MCQGenerator(True)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = MCQForm()
+    file_upload_form = FileUploadForm()
 
     if form.validate_on_submit():
         paragraphs = form.context.data
@@ -27,7 +37,33 @@ def index():
                                                          )[0:form.number_of_questions.data]
         return render_template('results.html', mcqs=questions)
 
-    return render_template('index.html', form=form)
+    if file_upload_form.validate_on_submit():
+        # Process the file data (e.g., print the content)
+        uploaded_file = file_upload_form.file.data
+        upload_folder = 'uploads'
+        os.makedirs(upload_folder, exist_ok=True)
+        file_path = os.path.join(upload_folder, uploaded_file.filename)
+        uploaded_file.save(file_path)
+        file_path = "./uploads/" + uploaded_file.filename
+        reader = fitz.open(file_path)
+        number_of_pages = reader.page_count
+        text = ""
+
+        for i in range(number_of_pages):
+            page = reader[i]
+            text += page.get_text("text") + ' '
+
+        text = ' '.join(text.split())  # Remove extra spaces and line breaks
+        # print(txt)
+        paragraphs = text
+        questions = MCQ_Generator.generate_mcq_questions(paragraphs,
+                                                         file_upload_form.number_of_questions.data
+                                                         )[0:form.number_of_questions.data]
+        reader.close()
+        os.remove(file_path)
+        return render_template('results.html', mcqs=questions)
+
+    return render_template('index.html', form=form, file_upload_form=file_upload_form)
 
 
 if __name__ == '__main__':
