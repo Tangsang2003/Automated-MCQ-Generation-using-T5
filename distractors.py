@@ -1,6 +1,6 @@
 from sense2vec import Sense2Vec
 s2v = Sense2Vec().from_disk('./app/ml_models/sense2vec_distractor_generation/data/s2v_old')
-word = '600 bc'
+word = '600'
 word = word.lower()
 word = word.replace(' ', '_')
 print(word)

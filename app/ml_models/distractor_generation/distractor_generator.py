@@ -74,8 +74,8 @@ class DistractorGenerator():
         # print('tokenizer len after: ', len(self.tokenizer))
         self.tokenizer_len = len(self.tokenizer)
 
-        # checkpoint_path = 'app/ml_models/distractor_generation/models/race-distractors.ckpt'
-        checkpoint_path = 'app/ml_models/distractor_generation/models/best-checkpoint.ckpt'
+        checkpoint_path = 'app/ml_models/distractor_generation/models/race-distractors.ckpt'
+        # checkpoint_path = 'app/ml_models/distractor_generation/models/best-checkpoint.ckpt'
         self.dg_model = QGModel.load_from_checkpoint(checkpoint_path)
         self.dg_model.freeze()
         self.dg_model.eval()
