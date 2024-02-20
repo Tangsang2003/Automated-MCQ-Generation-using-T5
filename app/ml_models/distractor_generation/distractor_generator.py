@@ -25,7 +25,7 @@ LEARNING_RATE = 0.0001
 SOURCE_MAX_TOKEN_LEN = 512
 TARGET_MAX_TOKEN_LEN = 64
 SEP_TOKEN = '<sep>'
-TOKENIZER_LEN = 32101 #after adding the new <sep> token
+TOKENIZER_LEN = 32101  # after adding the new <sep> token
 
 # Model
 class QGModel(pl.LightningModule):
@@ -74,7 +74,8 @@ class DistractorGenerator():
         # print('tokenizer len after: ', len(self.tokenizer))
         self.tokenizer_len = len(self.tokenizer)
 
-        checkpoint_path = 'app/ml_models/distractor_generation/models/race-distractors.ckpt'
+        # checkpoint_path = 'app/ml_models/distractor_generation/models/race-distractors.ckpt'
+        checkpoint_path = 'app/ml_models/distractor_generation/models/best-checkpoint.ckpt'
         self.dg_model = QGModel.load_from_checkpoint(checkpoint_path)
         self.dg_model.freeze()
         self.dg_model.eval()

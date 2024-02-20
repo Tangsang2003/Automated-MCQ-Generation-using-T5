@@ -105,7 +105,7 @@ class MCQGenerator():
             if len(distractors) > 3:
                 distractors = distractors[0:3]
 
-            #TODO - filter distractors having a similar bleu score with another distractor
+            # TODO - filter distractors having a similar bleu score with another distractor
             # Remove this if it fails hai tw
             # while len(distractors) < 3 and context_words:
             #     distractors.append(context_words.pop())

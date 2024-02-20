@@ -74,6 +74,7 @@ class QuestionGenerator():
         self.tokenizer_len = len(self.tokenizer)
 
         checkpoint_path = 'app/ml_models/question_generation/models/multitask-qg-ag.ckpt'
+        # checkpoint_path = 'app/ml_models/question_generation/models/best-checkpoint-v2.ckpt'
         self.qg_model = QGModel.load_from_checkpoint(checkpoint_path)
         self.qg_model.freeze()
         self.qg_model.eval()
