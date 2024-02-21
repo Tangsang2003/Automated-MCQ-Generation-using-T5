@@ -1,43 +1,33 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCQ Generator</title>
-</head>
-<body style="margin: auto; text-align:center;">
-    <h1 style="marign-bottom: 20px;"> Sudur Paschim Ko Local MCQ Generator</h1>
-    <form method="post">
+{% extends "layout.html" %}
+{% block maintitle %}
+<div class = "logo">
+<img class = "main-logo" src="{{ url_for('static', filename='images/logo-transparent-new.png') }}">
+    <h3> Automated Generation of MCQs using T5 Transformers and Sense-2-Vec</h3>
+</div>
+{% endblock %}
+{% block content %}
+    <form class="text-area-class" method="post">
         {{ form.hidden_tag() }}
-        <h3><label for="paragraphs"> Enter your content below:</label></h3>
-        {{ form.context(id="paragraphs", rows=5, cols=40) }}
+        <div class="text-content">
+<!--            <label for="paragraphs" class="form-label">Enter content below: </label>-->
+<!--            {{ form.context(id="paragraphs", rows=5, cols=40) }}-->
+            <div class = "text-content">
+                <label>Enter your text below: </label>
+                {{form.context (id = "paragraphs", class="form-control", rows="3", cols="100",
+                placeholder="Please enter your content here.",  oninput="autoResize()")}}
+<!--            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+            </div>
+        </div>
+<!--        <h3><label for="paragraphs"> Enter your content below:</label></h3>-->
+<!--        {{ form.context(id="paragraphs", rows=5, cols=40) }}-->
+<!--        <br>-->
+        <div class="text-content" id="top-number" style="margin-top: 20px; width: 500px;">
+        <label>Number of required questions:<br></label>
         <br>
-        <div style="margin-top: 20px;">
-        <strong><label for="number_of_mcqs">Number of required questions:<br></label></strong>
-        {{ form.number_of_questions(id="number_of_mcqs", type="number") }}
+        {{ form.number_of_questions(class="form-control", id="number_of_mcqs",
+            placeholder="Number of MCQs", type="number") }}
         <br>
         </div>
-        <button style="margin-top: 10px;" type="submit">Generate MCQs</button>
+        <button class="btn btn-outline-success" type="submit">Generate MCQs</button>
     </form>
-
-    <h2>Upload a File</h2>
-    <form method="post" enctype="multipart/form-data">
-        {{ file_upload_form.hidden_tag() }}
-        <div>
-            <label for="{{ file }}">Select a file:</label>
-            {{ file_upload_form.file }}
-        </div>
-
-        <div>
-            <strong><label for="{{ number_of_questions }}">Number of required questions:<br></label></strong>
-            {{ file_upload_form.number_of_questions(id="number_of_mcqs", type="number") }}
-        </div>
-
-        <div>
-            {{ file_upload_form.submit }}
-        </div>
-    </form>
-
-</body>
-</html>
+{% endblock %}

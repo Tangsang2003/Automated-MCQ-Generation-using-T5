@@ -1,0 +1,30 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Results</title>
+</head>
+<body>
+    <h1>Generated MCQs</h1>
+    {% for question in mcqs %}
+        <div style="margin-bottom: 10px;">
+            <ul>
+<!--                <li>-->
+                    <h3>{{loop.index}}. <strong>{{ question.questionText }}</strong></h3>
+                    <ol type="a">
+                        {% for option in question.distractors %}
+                            <li>{{ option }}</li>
+                        {% endfor %}
+                        <li>{{ question.answerText }}</li>
+                    </ol>
+<!--                </li>-->
+            </ul>
+            <strong><i style="margin-left: 60px;">Correct Answer: {{question.answerText}}</i></strong>
+            <hr>
+        </div>
+    {% endfor %}
+</body>
+
+</html>

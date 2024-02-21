@@ -2,10 +2,11 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, IntegerField, FileField, SubmitField
-from wtforms.validators import DataRequired, NumberRange, ValidationError
+from wtforms.validators import DataRequired, NumberRange
 from app.mcq_generation import MCQGenerator
 # from pdftextract import XPdf
 import fitz
+import random
 import os
 
 app = Flask(__name__)
@@ -19,23 +20,13 @@ class MCQForm(FlaskForm):
 
 
 class FileUploadForm(FlaskForm):
-    # file = FileField('File')
-
-    def validate_file(self, field):
-        if field.data:
-            if not field.data.filename.lower().endswith('.pdf'):
-                raise ValidationError('Only PDF files are allowed.')
-
+    file = FileField('File')
     number_of_questions = IntegerField('Number of MCQs',
                                        validators=[DataRequired(),
                                                    NumberRange(min=1, message='Please enter a positive integer.'
                                                                )])
 
     submit = SubmitField('Upload')
-    file = FileField('File', validators=[
-        DataRequired(),
-        validate_file
-    ])
 
 
 MCQ_Generator = MCQGenerator(True)
@@ -51,6 +42,10 @@ def index():
         questions = MCQ_Generator.generate_mcq_questions(paragraphs, form.number_of_questions.data
                                                          )[0:form.number_of_questions.data]
         title = "Results"
+        for question in questions:
+            question.distractors.append(question.answerText)
+            random.shuffle(question.distractors)
+
         return render_template('results.html', mcqs=questions, title=title)
 
     if file_upload_form.validate_on_submit():
@@ -80,7 +75,7 @@ def index():
         title = "Results"
         return render_template('results.html', mcqs=questions, title=title)
     title = "Home"
-    return render_template('New-index.html', form=form, file_upload_form=file_upload_form, title=title)
+    return render_template('index.html', form=form, file_upload_form=file_upload_form, title=title)
 
 
 if __name__ == '__main__':

@@ -1,13 +1,10 @@
-h1 {
-    /* font-size: calc(1.375rem + 1.5vw); */
-    background-color: #C6DCBA;
-    text-align: center;
-    padding: 50px;
-}
 
 body {
 background-color: #F6F5F5;
 text-align: center;
+font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .logo {
@@ -67,3 +64,52 @@ font-family: "Roboto", sans-serif;
 margin: auto;
 width: 175px;
 }
+
+
+
+.content-container {
+    text-align: left;
+    margin: auto;
+    padding: 20px;
+}
+
+
+.mcq-container {
+    margin-bottom: 10px;
+}
+
+.question-text {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.options-list {
+    list-style-type: lower-alpha;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.correct-answer {
+    display: none;
+    font-style: italic;
+    color: green;
+}
+
+.selected-option-correct {
+    color: green;
+}
+
+.selected-option-incorrect {
+    color: red;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #ccc;
+  color: #fff;
+  background-color: #fff;
+  height: 10px;
+  width: 80%;
+  margin: 20px auto;
+}
+

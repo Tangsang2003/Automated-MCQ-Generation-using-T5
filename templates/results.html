@@ -1,30 +1,25 @@
-<!-- templates/result.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCQ Results</title>
-</head>
-<body>
-    <h1>Generated MCQs</h1>
+{% extends "layout.html" %}
+{% block maintitle %}
+<div class = "logo">
+<img class = "main-logo" src="{{ url_for('static', filename='images/logo-transparent-new.png') }}">
+    <h3> Automated Generation of MCQs using T5 Transformers and Sense-2-Vec</h3>
+</div>
+{% endblock %}
+{% block content %}
+    <h2 style="text-align:left; margin-top: 10px; margin-left:10px;">Generated MCQs</h2>
+<div class="content-container">
     {% for question in mcqs %}
-        <div style="margin-bottom: 10px;">
-            <ul>
-<!--                <li>-->
-                    <h3>{{loop.index}}. <strong>{{ question.questionText }}</strong></h3>
-                    <ol type="a">
-                        {% for option in question.distractors %}
-                            <li>{{ option }}</li>
-                        {% endfor %}
-                        <li>{{ question.answerText }}</li>
-                    </ol>
-<!--                </li>-->
-            </ul>
-            <strong><i style="margin-left: 60px;">Correct Answer: {{question.answerText}}</i></strong>
+        <div class="mcq-container">
+            <div class="question-text"> <strong>{{ loop.index }}. </strong> <strong>{{ question.questionText }}</strong></div>
+            <ol class="options-list" type="a" data-correct-answer="{{ question.answerText }}">
+                {% for option in question.distractors %}
+                    <li onclick="checkAnswer(this)">{{ option }}</li>
+                {% endfor %}
+            </ol>
+            <div class="correct-answer">Correct Answer: {{ question.answerText }}</div>
             <hr>
         </div>
     {% endfor %}
-</body>
+</div>
+{% endblock %}
 
-</html>
