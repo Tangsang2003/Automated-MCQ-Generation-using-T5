@@ -2,7 +2,7 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, IntegerField, FileField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, NumberRange, ValidationError
 from app.mcq_generation import MCQGenerator
 # from pdftextract import XPdf
 import fitz
@@ -14,13 +14,28 @@ app.config['SECRET_KEY'] = 'pass'  # Replace with a strong secret key
 
 class MCQForm(FlaskForm):
     context = TextAreaField('Paragraphs', validators=[DataRequired()])
-    number_of_questions = IntegerField('Number of MCQs', validators=[DataRequired()])
+    number_of_questions = IntegerField('Number of MCQs', validators=[
+        DataRequired(), NumberRange(min=1, message='Please enter a positive integer.')])
 
 
 class FileUploadForm(FlaskForm):
-    file = FileField('File')
-    number_of_questions = IntegerField('Number of MCQs', validators=[DataRequired()])
+    # file = FileField('File')
+
+    def validate_file(self, field):
+        if field.data:
+            if not field.data.filename.lower().endswith('.pdf'):
+                raise ValidationError('Only PDF files are allowed.')
+
+    number_of_questions = IntegerField('Number of MCQs',
+                                       validators=[DataRequired(),
+                                                   NumberRange(min=1, message='Please enter a positive integer.'
+                                                               )])
+
     submit = SubmitField('Upload')
+    file = FileField('File', validators=[
+        DataRequired(),
+        validate_file
+    ])
 
 
 MCQ_Generator = MCQGenerator(True)
@@ -35,7 +50,8 @@ def index():
         paragraphs = form.context.data
         questions = MCQ_Generator.generate_mcq_questions(paragraphs, form.number_of_questions.data
                                                          )[0:form.number_of_questions.data]
-        return render_template('results.html', mcqs=questions)
+        title = "Results"
+        return render_template('results.html', mcqs=questions, title=title)
 
     if file_upload_form.validate_on_submit():
         # Process the file data (e.g., print the content)
@@ -61,9 +77,10 @@ def index():
                                                          )[0:form.number_of_questions.data]
         reader.close()
         os.remove(file_path)
-        return render_template('results.html', mcqs=questions)
-
-    return render_template('index.html', form=form, file_upload_form=file_upload_form)
+        title = "Results"
+        return render_template('results.html', mcqs=questions, title=title)
+    title = "Home"
+    return render_template('New-index.html', form=form, file_upload_form=file_upload_form, title=title)
 
 
 if __name__ == '__main__':

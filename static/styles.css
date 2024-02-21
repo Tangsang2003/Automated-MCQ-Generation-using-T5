@@ -1,0 +1,69 @@
+h1 {
+    /* font-size: calc(1.375rem + 1.5vw); */
+    background-color: #C6DCBA;
+    text-align: center;
+    padding: 50px;
+}
+
+body {
+background-color: #F6F5F5;
+text-align: center;
+}
+
+.logo {
+background-color: #C6DCBA;
+align-items: center;
+display:flex;
+text-align: center;
+justify-content: center;
+/* flex-direction: column; */
+padding: 15px;
+}
+
+.main-logo {
+margin-right: 20px;
+margin-left: 15px;
+width: 200px;
+}
+
+h3 {
+font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.text-content {
+margin:auto;
+width: 500px;
+}
+
+.mb-3 {
+margin-top: 50px;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+.text-area-class {
+margin-top: 20px;
+}
+
+label {
+margin-bottom: 10px;
+font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+}
+
+.text-content textarea {
+    max-width: 500px; /* Set the maximum width */
+    max-height: 300px; /* Set the maximum height */
+    width: 100%; /* Allow the textarea to expand horizontally */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+#number_of_mcqs {
+margin: auto;
+width: 175px;
+}
