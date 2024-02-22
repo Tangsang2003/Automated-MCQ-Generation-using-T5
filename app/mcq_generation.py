@@ -4,6 +4,7 @@ import toolz
 # Added modules
 # from nltk.tokenize import word_tokenize
 # from nltk.corpus import stopwords
+import random
 # Yaa samma
 
 from app.modules.duplicate_removal import remove_distractors_duplicate_with_correct_answer, remove_duplicates
@@ -13,6 +14,9 @@ from app.ml_models.distractor_generation.distractor_generator import DistractorG
 from app.ml_models.question_generation.question_generator import QuestionGenerator
 from app.ml_models.sense2vec_distractor_generation.sense2vec_generation import Sense2VecDistractorGeneration
 from app.models.question import Question
+
+
+from test_distractor import extract_named_entities, generate_distractors
 
 import time
 
@@ -93,14 +97,21 @@ class MCQGenerator():
         # Up until here
 
         for question in questions:
-            t5_distractors = self.distractor_generator.generate(5, question.answerText, question.questionText, context)
+            print("Adding distractors... from T5")
+            t5_distractors = self.distractor_generator.generate(3, question.answerText, question.questionText, context)
+            t5_distractors = remove_duplicates(t5_distractors)
+            t5_distractors = remove_distractors_duplicate_with_correct_answer(question.answerText, t5_distractors)
             if len(t5_distractors) < 3:
-                s2v_distractors = self.sense2vec_distractor_generator.generate(question.answerText, (3))
+                print("Adding distractors..from s2v")
+                s2v_distractors = generate_distractors(question.answerText, (5 - len(t5_distractors))
+                                                       , self.sense2vec_distractor_generator.s2v)
                 distractors = t5_distractors + s2v_distractors
             else:
                 distractors = t5_distractors
             distractors = remove_duplicates(distractors)
             distractors = remove_distractors_duplicate_with_correct_answer(question.answerText, distractors)
+            if len(distractors) >= 4:
+                distractors = random.sample(distractors, 4)
             # below you can remove hai tw
             if len(distractors) > 3:
                 distractors = distractors[0:3]
