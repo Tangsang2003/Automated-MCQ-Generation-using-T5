@@ -1,18 +1,18 @@
 # Import packages
-from typing import List, Dict
-import tqdm.notebook as tq
-from tqdm.notebook import tqdm
-import json
-import pandas as pd
-import numpy as np
+from typing import List
+# import tqdm.notebook as tq
+# from tqdm.notebook import tqdm
+# import json
+# import pandas as pd
+# import numpy as np
 import string
 
-import torch
-from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
+# import torch
+# from pathlib import Path
+# from torch.utils.data import Dataset, DataLoader
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import ModelCheckpoint
-from sklearn.model_selection import train_test_split
+# from pytorch_lightning.callbacks import ModelCheckpoint
+# from sklearn.model_selection import train_test_split
 from transformers import (
     AdamW,
     T5ForConditionalGeneration,
@@ -27,12 +27,14 @@ TARGET_MAX_TOKEN_LEN = 64
 SEP_TOKEN = '<sep>'
 TOKENIZER_LEN = 32101  # after adding the new <sep> token
 
+
 # Model
 class QGModel(pl.LightningModule):
     def __init__(self):
         super().__init__()
         self.model = T5ForConditionalGeneration.from_pretrained(MODEL_NAME, return_dict=True)
-        self.model.resize_token_embeddings(TOKENIZER_LEN) #resizing after adding new tokens to the tokenizer
+        self.model.resize_token_embeddings(TOKENIZER_LEN)  # resizing after adding new tokens to the
+        # tokenizer
 
     def forward(self, input_ids, attention_mask, labels=None):
         output = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
@@ -66,7 +68,7 @@ class QGModel(pl.LightningModule):
         return AdamW(self.parameters(), lr=LEARNING_RATE)
 
 
-class DistractorGenerator():
+class DistractorGenerator:
     def __init__(self):
         self.tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME)
         # print('tokenizer len before: ', len(self.tokenizer))
@@ -82,7 +84,9 @@ class DistractorGenerator():
 
     def generate(self, generate_count: int, correct: str, question: str, context: str) -> List[str]:
         
-        generate_triples_count = int(generate_count / 3) + 1  # since this model generates 3 distractors per generation
+        # generate_triples_count = int(generate_count / 3) + 1  # since this model generates 3
+        # distractors per generation
+        generate_triples_count = int(generate_count / 3) + 1
 
         model_output = self._model_predict(generate_triples_count, correct, question, context)
 
@@ -97,9 +101,9 @@ class DistractorGenerator():
     def _model_predict(self, generate_count: int, correct: str, question: str, context: str) -> str:
         source_encoding = self.tokenizer(
             '{} {} {} {} {}'.format(correct, SEP_TOKEN, question, SEP_TOKEN, context),
-            max_length= SOURCE_MAX_TOKEN_LEN,
+            max_length=SOURCE_MAX_TOKEN_LEN,
             padding='max_length',
-            truncation= True,
+            truncation=True,
             return_attention_mask=True,
             add_special_tokens=True,
             return_tensors='pt'
@@ -124,7 +128,7 @@ class DistractorGenerator():
 
         return ''.join(preds)
 
-    def _correct_index_of(self, text:str, substring: str, start_index: int = 0):
+    def _correct_index_of(self, text: str, substring: str, start_index: int = 0):
         try:
             index = text.index(substring, start_index)
         except ValueError:
@@ -136,7 +140,7 @@ class DistractorGenerator():
         new_text = text
         start_index_of_extra_id = 0
 
-        while (self._correct_index_of(new_text, '<extra_id_') >= 0):
+        while self._correct_index_of(new_text, '<extra_id_') >= 0:
             start_index_of_extra_id = self._correct_index_of(new_text, '<extra_id_', start_index_of_extra_id)
             end_index_of_extra_id = self._correct_index_of(new_text, '>', start_index_of_extra_id)
 

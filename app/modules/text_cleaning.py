@@ -1,5 +1,6 @@
 import re
 
+
 def clean_text(text: str) -> str:
     """Clean the text from symbols and additional information.
     
@@ -28,7 +29,7 @@ def _remove_brackets(text: str) -> str:
     Returns:
         str: CLeaned text.
     """
-    return re.sub(r'\((.*?)\)', lambda L: '', text)
+    return re.sub(r'\((.*?)\)', lambda l: '', text)
 
 
 def _remove_square_brackets(text: str) -> str:
@@ -43,7 +44,7 @@ def _remove_square_brackets(text: str) -> str:
         str: CLeaned text.
     """
 
-    return re.sub(r'\[(.*?)\]', lambda L: '', text)
+    return re.sub(r'\[(.*?)]', lambda l: '', text)
 
 
 def _remove_multiple_spaces(text: str) -> str:

@@ -1,16 +1,17 @@
-from logging import NullHandler
-from typing import List, Dict, Tuple
-import tqdm.notebook as tq
-from tqdm.notebook import tqdm
-import pandas as pd
-import numpy as np
+# from logging import NullHandler
+# from typing import List, Dict, Tuple
+from typing import Tuple
+# import tqdm.notebook as tq
+# from tqdm.notebook import tqdm
+# import pandas as pd
+# import numpy as np
 
-import torch
-from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
+# import torch
+# from pathlib import Path
+# from torch.utils.data import Dataset, DataLoader
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import ModelCheckpoint
-from sklearn.model_selection import train_test_split
+# from pytorch_lightning.callbacks import ModelCheckpoint
+# from sklearn.model_selection import train_test_split
 from transformers import (
     AdamW,
     T5ForConditionalGeneration,
@@ -65,7 +66,7 @@ class QGModel(pl.LightningModule):
         return AdamW(self.parameters(), lr=LEARNING_RATE)
 
 
-class QuestionGenerator():
+class QuestionGenerator:
     def __init__(self):
         self.tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME)
         # print('tokenizer len before: ', len(self.tokenizer))
