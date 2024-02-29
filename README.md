@@ -19,6 +19,7 @@ Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD d
 ## Screenshots / Demo 📸
 ![Screenshot 1](./static/images/demo-gif.gif)
 *Home Screen → Input Text → Generating... → Results Page*
+
 **Image: Demo of our project**
 ## Usage and Installation 🛠️
 #### 1. Clone the repository
