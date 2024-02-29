@@ -22,8 +22,10 @@ Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD d
 **Image: Demo of our project**
 ## Usage and Installation 🛠️
 #### 1. Clone the repository
-```commandline
+```
 git clone https://github.com/Tangsang2003/Minor-Project-T5-Transformers-MCQ-Generation.git
+```
+```
 cd Minor-Project-T5-Transformers-MCQ-Generation
 ```
 #### 2. Install Dependencies
