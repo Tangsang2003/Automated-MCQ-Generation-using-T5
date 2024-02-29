@@ -5,7 +5,7 @@ This project focuses on generating multiple-choice questions (MCQs) using T5 Tra
 Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD dataset for question-answer pair generation. And the other has been fine-tuned on the RACE dataset for generation of distractors (wrong answers).
 
 
-## Features
+## Features 🚀
 - Utilizes two instances of fine-tuned T5 transformers, one for Question-Answer Pair Generation and the other for Distractors Generation.
 - Also utilizes Sense-2-Vec to generate additional distractors in-case of insufficient number of distractors.
 - Generates MCQs based on the input text.
@@ -13,14 +13,14 @@ Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD d
 - A web-interface built using Python Flask for easy interaction of users with the model.
 - If you would like to train the models yourself, the training scripts are available [here.](./training_scripts)
 
-## Pre-requisites
+## Pre-requisites 📋
 - This project has been built using the Python 3.8 and the packages associated with Python 3.8. So, if any problems arise while using newer Python version, please consider using a virtual environment using Python 3.8 and try again.
 
-## Screenshots / Demo
+## Screenshots / Demo 📸
 ![Screenshot 1](./static/images/demo-gif.gif)
 *Home Screen → Input Text → Generating... → Results Page*
 **Image: Demo of our project**
-## Usage
+## Usage and Installation 🛠️
 #### 1. Clone the repository
 ```commandline
 git clone https://github.com/Tangsang2003/Minor-Project-T5-Transformers-MCQ-Generation.git
@@ -45,7 +45,7 @@ python mcq_app.py
 
 *Also, try using Python 3.8 if newer version Python throws dependency errors while pip installing the packages.*
 
-## Contributing
+## Contributing 🤝
 If you'd like to contribute to this project, please follow these steps:
 1. Fork the repository.
 2. Create a new branch for your feature: `git checkout -b feature-name`
@@ -53,13 +53,13 @@ If you'd like to contribute to this project, please follow these steps:
 4. Push to the branch: git push origin feature-name
 5. Submit a pull request.
 
-## Future Works?
+## Future Works? 🌟
 - Maybe, deploy the application somewhere.
 - Add edit, save and export feature by integrating with a database.
 - Integration with a database would also help create more refined and higher quality dataset specifically for MCQ generation, covering diverse range of topics.
 - Maybe, optimize the GUI hehe.
-- Creating custom datasets for very specific subjects and fine-tune the model on that, etc, etc. 
+- We also have plans to create custom datasets for very specific subjects and fine-tune the model on that, etc, etc. 
 - Maybe, we won't do anything at all. 
-- Bye! Thanks for checking out.
+- Bye! Thanks for checking out. ❤️️😁
 
 
