@@ -118,6 +118,18 @@ hr {
   width: 80%;
   margin: 20px auto;
 }
+
+#file-upload-area{
+    margin: auto;
+    width: 15rem;
+}
+.pdf-form{
+    margin-top: 30px;
+}
+
+#pdf-submit{
+    margin-top: 20px;
+}
 /* loader */
 /* Pre-loader CSS */
  .page-loader{

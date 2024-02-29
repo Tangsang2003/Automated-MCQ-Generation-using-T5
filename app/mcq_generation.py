@@ -108,6 +108,7 @@ class MCQGenerator:
                 # print("Adding distractors..from s2v")
                 s2v_distractors = generate_distractors(question.answerText, (4 - len(t5_distractors)),
                                                        self.sense2vec_distractor_generator.s2v)
+                # s2v_distractors = self.sense2vec_distractor_generator.generate(question.answerText, 3)
                 distractors = t5_distractors + s2v_distractors
             else:
                 distractors = t5_distractors

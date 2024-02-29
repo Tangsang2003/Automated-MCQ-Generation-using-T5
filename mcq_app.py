@@ -67,9 +67,15 @@ def index():
         text = ' '.join(text.split())  # Remove extra spaces and line breaks
         # print(txt)
         paragraphs = text
-        questions = MCQ_Generator.generate_mcq_questions(paragraphs,
-                                                         file_upload_form.number_of_questions.data
+        # questions = MCQ_Generator.generate_mcq_questions(paragraphs,
+        #                                                  file_upload_form.number_of_questions.data
+        #                                                  )[0:form.number_of_questions.data]
+        questions = MCQ_Generator.generate_mcq_questions(paragraphs, form.number_of_questions.data
                                                          )[0:form.number_of_questions.data]
+        title = "Results"
+        for question in questions:
+            question.distractors.append(question.answerText)
+            random.shuffle(question.distractors)
         reader.close()
         os.remove(file_path)
         title = "Results"

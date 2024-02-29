@@ -30,4 +30,28 @@
         </div>
         <button onclick="showLoader()" class="btn btn-outline-success" type="submit">Generate MCQs</button>
     </form>
+<div class="pdf-form">
+<!--    <h3>Upload a File</h3>-->
+    <form method="post" enctype="multipart/form-data">
+        {{ file_upload_form.hidden_tag() }}
+        <div>
+            <label for="file-upload-area">Select a PDF file:</label>
+            <div id = "file-upload-area">
+            {{ file_upload_form.file(class="form-control") }}
+            </div>
+        </div>
+
+        <div>
+            <div class="text-content"  style="margin-top: 20px; width: 500px;">
+            <label>Number of required questions:<br></label><br>
+            {{ file_upload_form.number_of_questions(class="form-control", id="number_of_mcqs",
+            placeholder="Number of MCQs", type="number") }}
+            </div>
+        </div>
+
+        <div id = "pdf-submit">
+            <button onclick="showLoader()" class="btn btn-outline-success" type="submit">Generate MCQs</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
