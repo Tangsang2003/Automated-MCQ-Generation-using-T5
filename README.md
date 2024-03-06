@@ -50,7 +50,7 @@ python mcq_app.py
 *Also, try using Python 3.8 if newer version Python throws dependency errors while pip installing the packages.*
 
 ## Running with the virtual environment
-To avoid any conflicts with python packages from other projects, it is a good practice to create a virtual environment in which the packages will be installed.
+To avoid any conflicts with python packages from other projects, be sure to use a separate virtual environment. In case of any dependency errors, create a virtual environment using Python 3.8.
 
 ### 1: Creating virtual environment:
 For Windows:
@@ -62,7 +62,7 @@ For Linux and MacOS:
 ```commandline
 python3 -m venv venv
 ```
-### Entering the virtual environment
+### Activating the virtual environment
 For Windows:
 ```commandline
 venv\Scripts\activate
@@ -71,10 +71,7 @@ For Linux and MacOS:
 ```commandline
 source venv/bin/activate
 ```
-## Installing required packages
-```commandline
-pip install -r requirements.txt
-```
+Then, you can follow the steps from [here](#usage-and-installation-). 
 
 ## Contributing 🤝
 If you'd like to contribute to this project, please follow these steps:
