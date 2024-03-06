@@ -3,6 +3,7 @@
 
 This project focuses on generating multiple-choice questions (MCQs) using T5 Transformers. 
 Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD dataset for question-answer pair generation. And the other has been fine-tuned on the RACE dataset for generation of distractors (wrong answers).
+The deatiled project report can be found [here.](./uploads/Minor_Final_Report.pdf)
 
 
 ## Features 🚀
