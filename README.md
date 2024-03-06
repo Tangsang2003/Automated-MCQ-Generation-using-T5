@@ -16,6 +16,7 @@ Two T5-small models have been fine-tuned. One has been fine-tuned on the SQuAD d
 ## Pre-requisites 📋
 - This project has been built using the Python 3.8 and the packages associated with Python 3.8. So, if any problems arise while using newer Python version, please consider using a virtual environment using Python 3.8 and try again.
 
+
 ## Screenshots / Demo 📸
 ![Screenshot 1](./static/images/demo-gif.gif)
 *Home Screen → Input Text → Generating... → Results Page*
@@ -47,6 +48,33 @@ python mcq_app.py
 *Note: You can use the main.py file to check out the very basic implementation.*
 
 *Also, try using Python 3.8 if newer version Python throws dependency errors while pip installing the packages.*
+
+## Running with the virtual environment
+To avoid any conflicts with python packages from other projects, it is a good practice to create a virtual environment in which the packages will be installed.
+
+### 1: Creating virtual environment:
+For Windows:
+```commandline
+python -m venv venv
+```
+
+For Linux and MacOS:
+```commandline
+python3 -m venv venv
+```
+### Entering the virtual environment
+For Windows:
+```commandline
+venv\Scripts\activate
+```
+For Linux and MacOS:
+```commandline
+source venv/bin/activate
+```
+## Installing required packages
+```commandline
+pip install -r requirements.txt
+```
 
 ## Contributing 🤝
 If you'd like to contribute to this project, please follow these steps:
